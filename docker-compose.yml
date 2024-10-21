@@ -1,0 +1,34 @@
+version: '3.8'
+
+name: "poc-healthchecks"
+
+services:
+  poc.healthchecks.api:
+    image: ${DOCKER_REGISTRY-}pochealthchecksapi
+    build:
+      context: .
+      dockerfile: PoC.Healthchecks.Api/Dockerfile
+    container_name: "poc-healthchecks-api"
+
+
+  poc.healthchecks.redis:
+    image: redis:7.2
+    container_name: poc-healthchecks-redis
+
+  poc.healthchecks.sqlserver:
+    image: 'mcr.microsoft.com/mssql/server:2022-latest'
+    container_name: "poc-healthchecks-sql-server"
+    environment:
+      MSSQL_SA_PASSWORD: "Password123!"
+      ACCEPT_EULA: 1
+
+  poc.healthchecks.rabbitmq:
+    image: rabbitmq:4.0-management
+    container_name: poc-healthchecks-rabbitmq
+    ports:
+      - "15672:15672"
+
+networks: 
+  default: 
+    external: true 
+    name: "healtchecks-poc"

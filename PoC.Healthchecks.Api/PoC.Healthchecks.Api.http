@@ -1,0 +1,6 @@
+@PoC.Healthchecks.Api_HostAddress = http://localhost:5236
+
+GET {{PoC.Healthchecks.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
